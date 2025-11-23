@@ -2,7 +2,7 @@ import os
 import sys
 
 from parser import parse_input
-from builtins import handle_builtin_commands
+from shell_builtins import handle_builtin_commands
 from command_handler import handle_background_process, handle_pipe, handle_redirection
 from executor import execute_external_command, execute_pipeline
 from signals import setup_signal_handlers
