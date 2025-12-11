@@ -253,23 +253,14 @@ else:
 3. **Aliases**: Not yet supported
 4. **Advanced Globbing**: Variable expansion is basic (no wildcards in echo)
 
-## 🚧 Future Enhancements
-
-- [ ] `alias` command for command shortcuts
-- [ ] `source` command to execute shell scripts
-- [ ] `set` command for shell options
-- [ ] Enhanced history with search functionality
-- [ ] Command completion helpers
-- [ ] `jobs`, `fg`, `bg` integration
-
 ## 🤝 Contributing
 
 This module is part of a team project. Integration points:
 
-**Person 1 (Moataz):** Use the return value to decide whether to fork/exec
-**Person 2 (Marwan):** Ensure commands are returned as lists
-**Person 3 (Youssef):** Skip pipe setup for built-in commands
-**Person 4 (Kareem):** Extend this module with additional built-ins
+- **Person 1 (Moataz):** Use the return value to decide whether to fork/exec
+- **Person 2 (Marwan):** Ensure commands are returned as lists
+- **Person 3 (Youssef):** Skip pipe setup for built-in commands
+- **Person 4 (Kareem):** Extend this module with additional built-ins
 
 ## 📄 License
 
