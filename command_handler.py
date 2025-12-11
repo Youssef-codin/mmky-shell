@@ -1,4 +1,4 @@
-def handle_redirection(command):
+def handle_redirection(command: list[str]) -> tuple[list[str], str | None, str | None]:
     """
     Identifies and prepares I/O redirection. (Placeholder)
 
@@ -18,7 +18,7 @@ def handle_redirection(command):
     return command, None, None  # command, stdin_fd, stdout_fd
 
 
-def handle_pipe(command):
+def handle_pipe(command: list[str]) -> tuple[list[str], list[str] | None]:
     """
     Splits a command list into two parts if a pipe "|" is present.
 
@@ -34,13 +34,12 @@ def handle_pipe(command):
     # Placeholder for piping logic
     # This function will split the command into parts based on the pipe operator '|'.
     if "|" in command:
-        # This is a simplified view. The actual implementation will be more complex.
         pipe_index = command.index("|")
-        return [command[:pipe_index]], [command[pipe_index+1:]]
-    return [command], None
+        return (command[:pipe_index], command[pipe_index+1:])
+    return (command), None
 
 
-def handle_background_process(command):
+def handle_background_process(command: list[str]) -> tuple[list[str], bool]:
     """
     Checks for a background operator "&" and removes it from the command.
 
