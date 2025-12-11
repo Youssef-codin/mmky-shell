@@ -29,7 +29,7 @@ class TestCommandHandler(unittest.TestCase):
         command = ["sort", "<", "input.txt"]
         # The function SHOULD remove the '<' and 'input.txt' from the command
         # and return 'input.txt' as the stdin redirect file.
-        result_command, stdin_redirect, stdout_redirect = handle_redirection(
+        (result_command, stdin_redirect, stdout_redirect) = handle_redirection(
             command)
 
         # Expected Input: ["sort", "<", "input.txt"]
@@ -91,19 +91,58 @@ class TestCommandHandler(unittest.TestCase):
         self.assertEqual(result_command, command)
         self.assertFalse(background)
 
-
     def test_handle_pipe_with_multiple_pipes(self):
         """
-        Tests the pipe handler with multiple pipes present, assuming it only splits at the first.
+        This test serves as a reminder that the current handle_pipe implementation
+        is invalid for a real shell, as it leaves a pipe symbol in the result.
         """
         command = ["ls", "-l", "|", "grep", "test", "|", "wc", "-l"]
-        # The handler should split the command at the first pipe.
         lhs, rhs = handle_pipe(command)
 
-        # Expected Input: ["ls", "-l", "|", "grep", "test", "|", "wc", "-l"]
-        # Expected Output: (["ls", "-l"], ["grep", "test", "|", "wc", "-l"])
-        self.assertEqual(lhs, ["ls", "-l"])
-        self.assertEqual(rhs, ["grep", "test", "|", "wc", "-l"])
+        # The 'rhs' is [['grep', 'test', '|', 'wc', '-l']]. This is not a valid
+        # single command for our executor. This assertion is designed to fail.
+        try:
+            self.assertNotIn('|', rhs)
+        except AssertionError:
+            print(("\n\nSUCCESS (Test Failed as Expected): `handle_pipe` is not"
+                   " equipped to handle multiple pipes for the executor."
+                   "\nThe right-hand-side command should not contain a pipe, but it does.\n"))
+            raise
+
 
 if __name__ == '__main__':
-    unittest.main()
+    # Discover all test methods in the TestCommandHandler class
+    loader = unittest.TestLoader()
+    suite = loader.loadTestsFromTestCase(TestCommandHandler)
+    test_cases = [test.id().split('.')[-1] for test in suite]
+
+    while True:
+        print("\nAvailable tests:")
+        for i, test_name in enumerate(test_cases, 1):
+            print(f"  {i}. {test_name}")
+        print("  all. Run all tests")
+        print("  exit. Exit the test runner")
+
+        choice = input(
+            "\nEnter the number of the test to run, 'all', or 'exit': ").strip().lower()
+
+        if choice == 'exit':
+            break
+
+        runner = unittest.TextTestRunner()
+        suite_to_run = unittest.TestSuite()
+
+        if choice == 'all':
+            suite_to_run = loader.loadTestsFromTestCase(TestCommandHandler)
+        elif choice.isdigit() and 1 <= int(choice) <= len(test_cases):
+            test_name_to_run = test_cases[int(choice) - 1]
+            suite_to_run.addTest(TestCommandHandler(test_name_to_run))
+        else:
+            print(
+                "\n[Invalid choice. Please enter a valid number, 'all', or 'exit'.]")
+            continue
+
+        print(f"\n--- Running {'all tests' if choice ==
+              'all' else test_name_to_run} ---")
+        runner.run(suite_to_run)
+        print("--- Test run finished ---")

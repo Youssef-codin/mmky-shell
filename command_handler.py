@@ -11,10 +11,26 @@ def handle_redirection(command: list[str]) -> tuple[list[str], str | None, str |
         - The file descriptor for stdin redirection (or None).
         - The file descriptor for stdout redirection (or None).
     """
+
     # Handles I/O redirection (<, >).
     # Placeholder for redirection logic
     # This function will identify redirection operators and file names,
     # modify the command list, and set up file descriptors.
+    try:
+        outputDirection = command.index(">")
+    except ValueError:
+        outputDirection = None
+
+    try:
+        inputDirection = command.index("<")
+    except ValueError:
+        inputDirection = None
+
+    if outputDirection != None:
+        return command[:outputDirection], None, command[outputDirection + 1]
+    elif inputDirection != None:
+        return command[:inputDirection], command[inputDirection + 1], None
+
     return command, None, None  # command, stdin_fd, stdout_fd
 
 
@@ -35,8 +51,8 @@ def handle_pipe(command: list[str]) -> tuple[list[str], list[str] | None]:
     # This function will split the command into parts based on the pipe operator '|'.
     if "|" in command:
         pipe_index = command.index("|")
-        return (command[:pipe_index], command[pipe_index+1:])
-    return (command), None
+        return command[:pipe_index], command[pipe_index+1:]
+    return command, None
 
 
 def handle_background_process(command: list[str]) -> tuple[list[str], bool]:
