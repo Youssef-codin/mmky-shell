@@ -111,15 +111,14 @@ Each team member contributed to a core subsystem:
 
 # 📂 How It Works (Technical Flow)
 
-```mermaid
-graph TD;
+```graph TD;
     A[User Input] --> B[Parser]
     B --> C{Built-in?}
     C -- Yes --> D[Execute Built-in]
-    C -- No --> E[Check for |, <, >, &]
-    E --> F[Set Up Redirections and Pipes]
+    C -- No --> E[Check for pipes, redirection, background]
+    E --> F[Set up redirections and pipelines]
     F --> G[Executor]
-    G --> H[Child Process via fork()]
+    G --> H[Child process via fork()]
     H --> I[execvp()]
     G --> J[Parent (wait or return)]
 ```
