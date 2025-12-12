@@ -1,13 +1,20 @@
+# parser.py
+import shlex
+import os
+import re
+
+def expand_variables(input_str):
+    pattern = r'\$\{([A-Za-z0-9_]+)\}|\$([A-Za-z0-9_]+)'
+    def replace_match(match):
+        var_name = match.group(1) or match.group(2)
+        return os.environ.get(var_name, '')
+    return re.sub(pattern, replace_match, input_str)
+
 def parse_input(input_str):
-    """
-    Parses the raw input string from the user into a list of tokens.
-
-    Args:
-        input_str: The raw string from the user.
-
-    Returns:
-        A list of strings, representing the command and its arguments.
-        For example, "ls -l /tmp" becomes ["ls", "-l", "/tmp"].
-    """
-    # This is a simple parser. It will be replaced by a more robust one.
-    return input_str.strip().split()
+    expanded_str = expand_variables(input_str)
+    try:
+        # posix=True ensures proper handling of quotes
+        return shlex.split(expanded_str, posix=True)
+    except ValueError as e:
+        print(f"Error parsing input: {e}")
+        return []
