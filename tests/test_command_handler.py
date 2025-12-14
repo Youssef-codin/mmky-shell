@@ -1,4 +1,10 @@
 import unittest
+import sys
+import os
+
+# Add the parent directory to sys.path to allow imports from the root
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
 from command_handler import handle_redirection, handle_pipe, handle_background_process
 
 
