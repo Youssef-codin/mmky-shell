@@ -1,15 +1,8 @@
 def handle_redirection(command: list[str]) -> tuple[list[str], str | None, str | None]:
+# command_handler.py
+def handle_redirection(command):
     """
-    Identifies and prepares I/O redirection. (Placeholder)
-
-    Args:
-        command: A list of strings representing the command and arguments.
-
-    Returns:
-        A tuple containing:
-        - The command list with redirection operators removed.
-        - The file descriptor for stdin redirection (or None).
-        - The file descriptor for stdout redirection (or None).
+    Detects < and > operators. Returns the cleaned command and filenames.
     """
 
     # Handles I/O redirection (<, >).
@@ -49,6 +42,34 @@ def handle_pipe(command: list[str]) -> tuple[list[str], list[str] | None]:
     # Handles piping between commands.
     # Placeholder for piping logic
     # This function will split the command into parts based on the pipe operator '|'.
+    stdin_file = None
+    stdout_file = None
+    clean_command = []
+
+    i = 0
+    while i < len(command):
+        if command[i] == '<':
+            if i + 1 < len(command):
+                stdin_file = command[i+1]
+                i += 2
+            else:
+                print("Syntax error: no file after <")
+                return [], None, None
+        elif command[i] == '>':
+            if i + 1 < len(command):
+                stdout_file = command[i+1]
+                i += 2
+            else:
+                print("Syntax error: no file after >")
+                return [], None, None
+        else:
+            clean_command.append(command[i])
+            i += 1
+
+    return clean_command, stdin_file, stdout_file
+
+
+def handle_pipe(command):
     if "|" in command:
         pipe_index = command.index("|")
         return command[:pipe_index], command[pipe_index+1:]
@@ -73,3 +94,7 @@ def handle_background_process(command: list[str]) -> tuple[list[str], bool]:
         background = True
         command.remove("&")
     return command, background
+def handle_background_process(command):
+    if command and command[-1] == "&":
+        return command[:-1], True
+    return command, False
