@@ -9,6 +9,7 @@ from command_handler import handle_background_process, handle_pipe, handle_redir
 from executor import execute_external_command, execute_pipeline
 from signals import setup_signal_handlers
 
+
 def main():
     setup_signal_handlers()
     while True:
@@ -25,7 +26,8 @@ def main():
                     CYAN = '\x1b[36m'
                     GREEN = '\x1b[32m'
                     RESET = '\x1b[0m'
-                    prompt = f"{BLUE}{USER}@{HOST}{RESET}:{CYAN}{CWD}{RESET} {GREEN}$ {RESET}"
+                    prompt = f"{BLUE}{
+                        USER}@{HOST}{RESET}:{CYAN}{CWD}{RESET} {GREEN}$ {RESET}"
                 else:
                     prompt = f"{os.getcwd()} $ "
                 input_str = input(prompt)
@@ -37,7 +39,8 @@ def main():
                 continue
 
             command = parse_input(input_str)
-            if not command: continue
+            if not command:
+                continue
 
             # Handle background and pipeline tokens first
             command, background = handle_background_process(command)
@@ -66,14 +69,16 @@ def main():
                                 f_out = open(stdout_file, 'w')
                                 sys.stdout = f_out
                             except OSError as e:
-                                print(f"Error opening output file '{stdout_file}': {e}", file=sys.stderr)
+                                print(f"Error opening output file '{
+                                      stdout_file}': {e}", file=sys.stderr)
                                 continue
                         if stdin_file:
                             try:
                                 f_in = open(stdin_file, 'r')
                                 sys.stdin = f_in
                             except FileNotFoundError:
-                                print(f"Error: Input file '{stdin_file}' not found.", file=sys.stderr)
+                                print(f"Error: Input file '{
+                                      stdin_file}' not found.", file=sys.stderr)
                                 continue
 
                         if handle_builtin_commands(cmd):
@@ -102,6 +107,7 @@ def main():
             break
         except Exception as e:
             print(f"An unexpected error occurred: {e}", file=sys.stderr)
+
 
 if __name__ == "__main__":
     main()

@@ -6,20 +6,20 @@ def handle_redirection(command):
     stdin_file = None
     stdout_file = None
     clean_command = []
-    
+
     i = 0
     while i < len(command):
         if command[i] == '<':
             if i + 1 < len(command):
                 stdin_file = command[i+1]
-                i += 2 # Skip operator and filename
+                i += 2
             else:
                 print("Syntax error: no file after <")
                 return [], None, None
         elif command[i] == '>':
             if i + 1 < len(command):
                 stdout_file = command[i+1]
-                i += 2 # Skip operator and filename
+                i += 2
             else:
                 print("Syntax error: no file after >")
                 return [], None, None
@@ -32,11 +32,8 @@ def handle_redirection(command):
 
 def handle_pipe(command):
     if "|" in command:
-        try:
-            pipe_index = command.index("|")
-            return command[:pipe_index], command[pipe_index+1:]
-        except ValueError:
-            pass
+        pipe_index = command.index("|")
+        return command[:pipe_index], command[pipe_index+1:]
     return command, None
 
 
