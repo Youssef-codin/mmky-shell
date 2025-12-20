@@ -1,13 +1,13 @@
 import signal
 import os
 
-def handle_sigint():
+def handle_sigint(sig,frame):
     """
     Signal handler for SIGINT (Ctrl+C).
     """
     print("\nCaught Ctrl+C. Use 'exit' to quit the shell.")
 
-def handle_sigchld():
+def handle_sigchld(sig,frame):
     """
     Signal handler for SIGCHLD.
     Reaps zombie processes created by background jobs.

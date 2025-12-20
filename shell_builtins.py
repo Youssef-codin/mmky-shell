@@ -49,7 +49,7 @@ def handle_builtin_commands(command):
             status = int(command[1]) if len(command) > 1 else 0
         except ValueError:
             status = 0
-        print("Exiting shell...")
+        print("Exiting MMKY shell...")
         sys.exit(status)
 
     elif cmd == 'pwd':

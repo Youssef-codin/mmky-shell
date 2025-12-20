@@ -116,7 +116,7 @@ def main():
         except KeyboardInterrupt:
             print()  # Handle Ctrl+C gracefully
         except EOFError:
-            print("\nExiting shell.")
+            print("\nExiting MMKY shell.")
             break
         except Exception as e:
             print(f"Error: {e}", file=sys.stderr)
