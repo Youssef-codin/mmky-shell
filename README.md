@@ -122,6 +122,7 @@ Each team member contributed to a core subsystem:
     H --> I[execvp()]
     G --> J[Parent (wait or return)]
 ```
+<p align="center"> <img src="https://github.com/user-attachments/assets/0874157f-78b8-4685-bfdf-f2f512f643a9" width="800" alt="Shell Workflow Diagram"/> </p>
 
 ---
 
