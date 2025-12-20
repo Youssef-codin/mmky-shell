@@ -1,7 +1,7 @@
 # 🐚 Basic Shell Implementation — MMKY Shell
 
-**MMKY Shell (Marwan, Moataz, Kareem, Youssef)** is a complete, modular, and POSIX-inspired Unix-like shell implemented in Python.  
-*It supports command execution, pipelines, I/O redirection, background jobs, environment variable expansion, and full signal handling.*
+> **MMKY Shell (Marwan, Moataz, Kareem, Youssef)** is a complete, modular, and POSIX-inspired Unix-like shell implemented in Python.  
+> *It supports command execution, pipelines, I/O redirection, background jobs, environment variable expansion, and full signal handling.*
 
 ---
 
