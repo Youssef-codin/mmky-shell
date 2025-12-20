@@ -1,7 +1,7 @@
-# 🐚 Basic Shell Implementation (Custom Unix-Like CLI)
+# 🐚 Basic Shell Implementation — MMKY Shell
 
-> **A complete, modular, and POSIX-inspired shell implemented in Python.**
-> *Supports command execution, pipelines, redirection, background jobs, environment expansion, and full signal handling.*
+**MMKY Shell (Marwan, Moataz, Kareem, Youssef)** is a complete, modular, and POSIX-inspired Unix-like shell implemented in Python.  
+*It supports command execution, pipelines, I/O redirection, background jobs, environment variable expansion, and full signal handling.*
 
 ---
 
@@ -184,6 +184,15 @@ python3 main.py
 * Arrow-key history navigation
 * Persistent history saved to disk
 * Support for `>>` (append redirection)
+
+---
+
+## 👥 Contributors
+
+- **Marwan** — Parsing & variable expansion  
+- **Moataz** — Process execution & signal handling  
+- **Kareem** — Built-in commands & user features  
+- **Youssef** — Pipelines, redirection & shell control flow
 
 ---
 
