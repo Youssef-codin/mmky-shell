@@ -1,16 +1,13 @@
-# signals.py
 import signal
-import sys
 import os
 
-def handle_sigint(sig, frame):
+def handle_sigint():
     """
     Signal handler for SIGINT (Ctrl+C).
     """
     print("\nCaught Ctrl+C. Use 'exit' to quit the shell.")
-    # We do NOT exit here, we just reprint the prompt (handled in main loop)
 
-def handle_sigchld(sig, frame):
+def handle_sigchld():
     """
     Signal handler for SIGCHLD.
     Reaps zombie processes created by background jobs.
@@ -18,11 +15,11 @@ def handle_sigchld(sig, frame):
     """
     try:
         while True:
-            # -1 means wait for any child process
+            # MS- '-1' means wait for any child process
             pid, status = os.waitpid(-1, os.WNOHANG)
             if pid == 0:
                 break
-    except ChildProcessError:
+    except ChildProcessError: # MS- whn no exited child
         pass
     except OSError:
         pass

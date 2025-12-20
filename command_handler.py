@@ -9,10 +9,10 @@ def handle_redirection(command):
     i = 0
     while i < len(command):
         if command[i] == '<':
-            if i + 1 < len(command):
+            if i + 1 < len(command): # MS- valid command , eg:- ['cat','<','filename.txt']
                 stdin_file = command[i+1]
                 i += 2
-            else:
+            else: # MS- Invalid command , eg:- ['cat','<']
                 # Syntax error, ignore for now
                 i += 1
         elif command[i] == '>':
